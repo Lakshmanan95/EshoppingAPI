@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -51,9 +52,9 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	//generate token for user
-	public String generateToken(User userDetails) {
+	public String generateToken(User userDetails, boolean mobile) {
 		Map<String, Object> claims = new HashMap<>();
-		return doGenerateToken(claims, userDetails.getUsername());
+		return doGenerateToken(claims, userDetails.getUsername(), mobile);
 	}
 
 	//while creating the token -
@@ -61,11 +62,21 @@ public class JwtTokenUtil implements Serializable {
 	//2. Sign the JWT using the HS512 algorithm and secret key.
 	//3. According to JWS Compact Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1)
 	//   compaction of the JWT to a URL-safe string 
-	private String doGenerateToken(Map<String, Object> claims, String subject) {
-
-		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-				.signWith(SignatureAlgorithm.HS512, secret).compact();
+	private String doGenerateToken(Map<String, Object> claims, String subject, boolean mobile) {
+		
+		String value = null;
+		if(mobile) {
+			Date newDate = DateUtils.addMonths(new Date(), 5);
+			value = Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+					.setExpiration(newDate)
+					.signWith(SignatureAlgorithm.HS512, secret).compact();
+		}else {
+			value = Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+					.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+					.signWith(SignatureAlgorithm.HS512, secret).compact();
+		}
+		
+		return value;
 	}
 
 	//validate token

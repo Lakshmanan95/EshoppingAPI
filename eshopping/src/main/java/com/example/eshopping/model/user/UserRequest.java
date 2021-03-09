@@ -7,6 +7,7 @@ public class UserRequest {
 
 	User user;
 	UserDetails userDetails;
+	boolean mobile;
 	
 	public User getUser() {
 		return user;
@@ -19,6 +20,12 @@ public class UserRequest {
 	}
 	public void setUserDetails(UserDetails userDetails) {
 		this.userDetails = userDetails;
+	}
+	public boolean isMobile() {
+		return mobile;
+	}
+	public void setMobile(boolean mobile) {
+		this.mobile = mobile;
 	}
 	
 	

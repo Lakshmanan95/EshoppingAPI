@@ -18,4 +18,5 @@ public interface ProductRepository extends CrudRepository<Product, Long>{
 //	@Query()
 	List<Product> findByTitleRegex(String title);
 	List<Product> findByBulkOrders(boolean bulkOrders);
+	List<Product> findByUserId(String userId);
 }

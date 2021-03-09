@@ -416,11 +416,17 @@ public class ProductDAOImpl implements ProductDAO{
 		return query;
 	}
 	
-	public List<ProductListing> getProductListingSuggesion(String title){
+	public List<ProductListing> getProductListingSuggesion(String title, String categoryId, String subCategoryId){
 		List<ProductListing> suggesion = new ArrayList<>();
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("title").regex("^"+title,"i"));
+			if(categoryId != null)
+				query.addCriteria(Criteria.where("categoryId").is(categoryId));
+			if(subCategoryId != null) {
+				query.addCriteria(Criteria.where("subCategoryId").is(subCategoryId));
+			}
+			query.addCriteria(Criteria.where("productListing").regex("^"+title,"i"));
+//			query.addCriteria(Criteria.where("isActive").is(1));
 			query.limit(5);
 			suggesion = mongoTemplate.find(query, ProductListing.class);
 		}
@@ -435,6 +441,7 @@ public class ProductDAOImpl implements ProductDAO{
 		try {
 			Query query = new Query();
 			query.addCriteria(Criteria.where("productName").regex("^"+title,"i"));
+			query.addCriteria(Criteria.where("isActive").is(1));
 			query.limit(5);
 			suggesion = mongoTemplate.find(query, Product.class);
 		}
@@ -475,6 +482,7 @@ public class ProductDAOImpl implements ProductDAO{
 			query.addCriteria(new Criteria().orOperator(Criteria.where("displayLocation").is("SriLanka"),
 					Criteria.where("displayLocation").is("Both")));
 		}
+		query.addCriteria(Criteria.where("isActive").is(1));
 		product = mongoTemplate.find(query, Product.class);
 		return product;
 	}

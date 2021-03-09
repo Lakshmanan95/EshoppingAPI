@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.eshopping.common.BaseResponse;
 import com.example.eshopping.common.CommonConstant;
+import com.example.eshopping.entity.Cart;
+import com.example.eshopping.entity.Product;
 import com.example.eshopping.entity.User;
 import com.example.eshopping.entity.UserDetails;
 import com.example.eshopping.model.product.ApprovalRequest;
@@ -24,7 +26,10 @@ import com.example.eshopping.model.user.UserFullDetailsResponse;
 import com.example.eshopping.model.user.UserListVO;
 import com.example.eshopping.model.user.UserRequest;
 import com.example.eshopping.model.user.UserUpdateRequest;
+import com.example.eshopping.service.CartService;
+import com.example.eshopping.service.ProductService;
 import com.example.eshopping.service.UserService;
+import com.example.eshopping.util.EncryptDecrypt;
 import com.example.eshopping.util.JSONUtil;
 
 @RestController
@@ -34,6 +39,12 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	ProductService productService;
+	
+	@Autowired
+	CartService cartService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/hello")
 	public String firstPage() {
@@ -97,6 +108,14 @@ public class UserController {
 		BaseResponse response = new BaseResponse();
 		try {
 			int delete = userService.deleteUserById(id);
+			List<Product> productList = productService.getProductByUserId(id);
+			for(Product product : productList) {
+				List<Cart> cartList = cartService.getCartByProductId(product.getId());
+				for(Cart cart : cartList) {
+					cartService.deleteCart(cart.getId());
+				}
+				productService.deleteProduct(product.getId());
+			}
 			System.out.println(" delete user "+delete);
 			response.setMessage("User Deleted.");
 		}
@@ -238,4 +257,8 @@ public class UserController {
 		}
 		return response;
 	}
+	
+	
+	
+	
 }

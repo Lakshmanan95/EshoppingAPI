@@ -36,6 +36,7 @@ public class Product {
 	private String categoryName;
 	private String subCategoryId;
 	private String productListingId;
+	private String productListing;
 	private String userId;
 	private String userName;
 	private String brand;
@@ -67,7 +68,13 @@ public class Product {
 	private String bulkorderMaxQuantity;
 	private String bulkorderPrice;
 	private String bulkorderOfferPrice;
-	
+	private String keyword;
+	private String supplyerprice;
+	private String dutytax; 
+	private String strikePrice;
+	private String size;
+	private String handlingFee;
+	private String deliveryPartner;
 	
 	public String getId() {
 		return id;
@@ -357,6 +364,55 @@ public class Product {
 	public void setBulkorderOfferPrice(String bulkorderOfferPrice) {
 		this.bulkorderOfferPrice = bulkorderOfferPrice;
 	}
+	public String getProductListing() {
+		return productListing;
+	}
+	public void setProductListing(String productListing) {
+		this.productListing = productListing;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	public String getSupplyerprice() {
+		return supplyerprice;
+	}
+	public void setSupplyerprice(String supplyerprice) {
+		this.supplyerprice = supplyerprice;
+	}
+	public String getDutytax() {
+		return dutytax;
+	}
+	public void setDutytax(String dutytax) {
+		this.dutytax = dutytax;
+	}
+	public String getStrikePrice() {
+		return strikePrice;
+	}
+	public void setStrikePrice(String strikePrice) {
+		this.strikePrice = strikePrice;
+	}
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
+	}
+	public String getHandlingFee() {
+		return handlingFee;
+	}
+	public void setHandlingFee(String handlingFee) {
+		this.handlingFee = handlingFee;
+	}
+	public String getDeliveryPartner() {
+		return deliveryPartner;
+	}
+	public void setDeliveryPartner(String deliveryPartner) {
+		this.deliveryPartner = deliveryPartner;
+	}
+	
 	
 	
 	

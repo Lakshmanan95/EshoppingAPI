@@ -8,6 +8,7 @@ public class JwtRequest implements Serializable {
 	
 	private String email;
 	private String password;
+	private boolean mobile;
 	
 	//need default constructor for JSON Parsing
 	public JwtRequest()
@@ -41,4 +42,14 @@ public class JwtRequest implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public boolean isMobile() {
+		return mobile;
+	}
+
+	public void setMobile(boolean mobile) {
+		this.mobile = mobile;
+	}
+	
+	
 }

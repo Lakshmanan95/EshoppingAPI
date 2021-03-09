@@ -138,6 +138,10 @@ public class PdfGenerator {
             hcell1.setHorizontalAlignment(Element.ALIGN_LEFT);
             productTable.addCell(hcell1);
             
+            hcell1 = new PdfPCell(new Phrase("Handling Fee", headFont));
+            hcell1.setHorizontalAlignment(Element.ALIGN_LEFT);
+            productTable.addCell(hcell1);
+            
             hcell1 = new PdfPCell(new Phrase("Net Amount", headFont));
             hcell1.setHorizontalAlignment(Element.ALIGN_LEFT);
             productTable.addCell(hcell1);
@@ -198,6 +202,16 @@ public class PdfGenerator {
             shippingCell = new PdfPCell(new Phrase(String.valueOf(order.getShippingCharge()), headFont));
             shippingCell.setHorizontalAlignment(Element.ALIGN_LEFT);
             productTable.addCell(shippingCell);
+            
+            PdfPCell handlingFeeCell;
+            handlingFeeCell = new PdfPCell(new Phrase("Handling Fee", headFont));
+            handlingFeeCell.setColspan(6);
+            handlingFeeCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            productTable.addCell(handlingFeeCell);
+            
+            handlingFeeCell = new PdfPCell(new Phrase(String.valueOf(orderList.getHandlingFee()), headFont));
+            handlingFeeCell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            productTable.addCell(handlingFeeCell);
             
             PdfPCell totalPriceCell;
             totalPriceCell = new PdfPCell(new Phrase("Total", headFont));

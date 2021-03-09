@@ -9,7 +9,7 @@ import com.example.eshopping.entity.OrderMaster;
 
 public class OrderRequest {
 
-	
+	private String id;
 	@NotEmpty
 	private String userId;
 	@NotEmpty
@@ -26,7 +26,9 @@ public class OrderRequest {
 	private boolean directOrder;
 	List<DirectOrder> directOrderList;
 	private String orderType;
-	
+	private String wayBillNumber;
+	private String selectedSize;
+	private String handlingFee;
 	
 	
 	public String getUserId() {
@@ -94,6 +96,30 @@ public class OrderRequest {
 	}
 	public void setOrderType(String orderType) {
 		this.orderType = orderType;
+	}
+	public String getWayBillNumber() {
+		return wayBillNumber;
+	}
+	public void setWayBillNumber(String wayBillNumber) {
+		this.wayBillNumber = wayBillNumber;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getSelectedSize() {
+		return selectedSize;
+	}
+	public void setSelectedSize(String selectedSize) {
+		this.selectedSize = selectedSize;
+	}
+	public String getHandlingFee() {
+		return handlingFee;
+	}
+	public void setHandlingFee(String handlingFee) {
+		this.handlingFee = handlingFee;
 	}	
 	
 	

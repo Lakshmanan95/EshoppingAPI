@@ -75,13 +75,21 @@ public class OrderServiceImpl implements OrderService{
 				} 
 				master.setStatus("InProgress");
 				master.setSellerId(product.getUserId());
+				master.setSupplyerprice(product.getSupplyerprice());
+				master.setDutytax(product.getDutytax());
 				master.setQuantity(String.valueOf(cartMaster.getQuantity()));
 				master.setProductId(cartMaster.getProductId());
 				master.setProductName(cartMaster.getProductName());
 				master.setProductImg(product.getProdImage());
+				master.setReturnPolicy(product.isReturnPolicy());
+				master.setWayBillNumber(orderRequest.getWayBillNumber());
+				master.setStrikePrice(product.getStrikePrice());
+				master.setSize(product.getSize());
 				double price = product.getOfferPrice() * Integer.parseInt(master.getQuantity());
 				totalPrice+=price;
 				master.setPrice(String.valueOf(price));
+				master.setHandlingFee(cartMaster.getHandlingFee());
+				master.setSelectedSize(cartMaster.getSelectedSize());
 				orderMasterSave.add(master);
 				cartService.deleteCart(cartMaster.getId());
 			}
@@ -102,6 +110,11 @@ public class OrderServiceImpl implements OrderService{
 				master.setProductId(product.getId());
 				master.setProductName(product.getProductName());
 				master.setProductImg(product.getProdImage());
+				master.setSupplyerprice(product.getSupplyerprice());
+				master.setDutytax(product.getDutytax());
+				master.setWayBillNumber(orderRequest.getWayBillNumber());
+				master.setStrikePrice(product.getStrikePrice());
+				master.setSize(product.getSize());
 				String priceInString = null;
 				if(orderRequest.getOrderType().equalsIgnoreCase("bulkOrder")) {
 					priceInString = product.getBulkorderOfferPrice();
@@ -112,6 +125,8 @@ public class OrderServiceImpl implements OrderService{
 				double price = Double.valueOf(priceInString) * Integer.parseInt(direct.getQuantity());
 				totalPrice+=price;
 				master.setPrice(String.valueOf(price));
+				master.setHandlingFee(orderRequest.getHandlingFee());
+				master.setSelectedSize(orderRequest.getSelectedSize());
 				orderMasterSave.add(master);
 			}
 		}
@@ -129,6 +144,8 @@ public class OrderServiceImpl implements OrderService{
 		order.setPaymentMethod(orderRequest.getPaymentMethod());
 		order.setOrderStatus(orderRequest.getOrderStatus());
 		order.setOrderDate(DateFormat.getTodayString());
+		order.setWayBillNumber(orderRequest.getWayBillNumber());
+		
 		System.out.println("date  String "+DateFormat.getTodayString());
 		order.setOrderUserId(orderRequest.getUserId());
 		System.out.println("userId  ");
@@ -166,5 +183,9 @@ public class OrderServiceImpl implements OrderService{
 	
 	public List<OrderMaster> getOrderBySellerIdAndStatus(String sellerId, String status){
 		return orderMasterRepository.findBySellerIdAndStatus(sellerId, status);
+	}
+	
+	public Order saveOrderDirectly(Order order) {
+		return orderRepository.save(order);
 	}
 }

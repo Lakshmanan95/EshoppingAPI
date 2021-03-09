@@ -42,6 +42,7 @@ import com.example.eshopping.model.product.ProductRequest;
 import com.example.eshopping.model.product.ProductResponse;
 import com.example.eshopping.model.product.Suggesion;
 import com.example.eshopping.model.product.UploadFileResponse;
+import com.example.eshopping.repo.ProductRepository;
 import com.example.eshopping.service.ProductService;
 import com.example.eshopping.service.UserService;
 import com.example.eshopping.util.DateFormat;
@@ -60,6 +61,9 @@ public class ProductController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	ProductRepository productReository;
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/saveAndUpdateProduct")
 	public ProductResponse saveAndUpdateProduct(@Valid @RequestBody Product request) {
@@ -217,7 +221,7 @@ public class ProductController {
 			}
 			
 //				response.setProducts(product);
-				List<ProductListing> productListing = productService.getProductListingSuggesion(request.getTitle());
+				List<ProductListing> productListing = productService.getProductListingSuggesion(request.getTitle(),request.getCategory(), request.getSubCategory());
 				for(ProductListing productSuggesion : productListing) {
 					Suggesion suggesion = new Suggesion();
 					suggesion.setId(productSuggesion.getId());
@@ -389,6 +393,18 @@ public class ProductController {
 		ProductListingResponse response = new ProductListingResponse();
 		try {
 			List<Product> productListing = productService.getProductNameSuggesion(request.getTitle());
+//			List<Product> products = productReository.findAll();
+//			
+//			for(Product productList : products) {
+//				System.out.println("Name : "+productList.getProductName());
+//				if(productList.getUserId() != null && (productList.getUserId().equals("601558081b110847c44346cb") || productList.getUserId().equals("6009431a4a58132dcc2774c5")) ) {
+//					productList.setIsActive(1);
+//				}else {
+//				productList.setIsActive(0);
+////					
+//				}
+//				productService.saveProduct(productList);
+//			}
 			response.setProduct(productListing);
 		}
 		catch(Exception e) {

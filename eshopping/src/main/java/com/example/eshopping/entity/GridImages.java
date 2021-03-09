@@ -12,6 +12,10 @@ public class GridImages {
 	private String imagePath;
 	private String desc;
 	private String type;
+	private String categoryId; 
+	private String subCategoryId;
+	private String productListingId;
+	
 	public String getId() {
 		return id;
 	}
@@ -41,6 +45,24 @@ public class GridImages {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public String getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	public String getSubCategoryId() {
+		return subCategoryId;
+	}
+	public void setSubCategoryId(String subCategoryId) {
+		this.subCategoryId = subCategoryId;
+	}
+	public String getProductListingId() {
+		return productListingId;
+	}
+	public void setProductListingId(String productListingId) {
+		this.productListingId = productListingId;
 	}
 	
 	

@@ -19,9 +19,15 @@ public class Order {
 	private double shippingCharge;
 	private String currencyValue;
 	private String currency;
+	private String wayBillNumber;
 	
 	
-	
+	public String getWayBillNumber() {
+		return wayBillNumber;
+	}
+	public void setWayBillNumber(String wayBillNumber) {
+		this.wayBillNumber = wayBillNumber;
+	}
 	public String getId() {
 		return id;
 	}
@@ -92,6 +98,7 @@ public class Order {
 	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
+	
 	
 	
 	

@@ -104,11 +104,15 @@ public class ProductServiceImpl implements ProductService{
 		return productDAO.getBulkOrders(displayLocation);
 	}
 	
-	public List<ProductListing> getProductListingSuggesion(String title){
-		return productDAO.getProductListingSuggesion(title);
+	public List<ProductListing> getProductListingSuggesion(String title,  String categoryId, String subCategoryId){
+		return productDAO.getProductListingSuggesion(title, categoryId, subCategoryId);
 	}
 	
 	public List<Product> getProductNameSuggesion(String title){
 		return productDAO.getProductNameSuggesion(title);
+	}
+	
+	public List<Product> getProductByUserId(String userId){
+		return productReository.findByUserId(userId);
 	}
 }

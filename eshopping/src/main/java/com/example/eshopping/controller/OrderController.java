@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.eshopping.common.BaseResponse;
 import com.example.eshopping.common.CommonConstant;
 import com.example.eshopping.entity.Order;
 import com.example.eshopping.entity.OrderMaster;
@@ -197,6 +198,20 @@ public class OrderController {
 		try {
 			List<OrderMaster> orderMaster = orderService.getOrderBySellerIdAndStatus(request.getSellerId(), request.getOrderStatus());
 			response.setOrderMaster(orderMaster);
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return response;
+	}
+	
+	@PostMapping("/orderStatusUpdate")
+	public BaseResponse orderStatusUpdate(@RequestBody OrderRequest request) {
+		BaseResponse response = new BaseResponse();
+		try {
+			Order order  = orderService.getOrderById(request.getId());
+			order.setOrderStatus(request.getOrderStatus());
+			orderService.saveOrderDirectly(order);			
 		}
 		catch(Exception e) {
 			System.out.println(e);

@@ -44,4 +44,9 @@ public class CartServiceImpl implements CartService{
 	public Long countCartItemsByUserId(String userId) {
 		return cartRepository.countByCartUserId(userId);
 	}
+	
+	@Override
+	public List<Cart> getCartByProductId(String productId){
+		return cartRepository.findByProductId(productId);
+	}
 }

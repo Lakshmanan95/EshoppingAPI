@@ -11,6 +11,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -76,7 +77,7 @@ public class JwtAuthenticationController {
 		}
 		
 		if(userDetails != null) {
-			final String token = jwtTokenUtil.generateToken(userDetails);
+			final String token = jwtTokenUtil.generateToken(userDetails, authenticationRequest.isMobile());
 			Long count = cartService.countCartItemsByUserId(userDetails.getId());
 			String gst = null;
 			if(userDetailsGst != null) {
@@ -144,7 +145,7 @@ public class JwtAuthenticationController {
 						response.setMessage("Register Failed");
 						response.setStatusCode(01);
 					}else {
-						final String token = jwtTokenUtil.generateToken(registerUser);
+						final String token = jwtTokenUtil.generateToken(registerUser, request.isMobile());
 						response.setJwt(token);
 						response.setUserId(registerUser.getId());
 						response.setUserName(registerUser.getUsername());
@@ -242,6 +243,55 @@ public class JwtAuthenticationController {
 			System.out.println(e);
 		}
 		return response;
+	}
+	
+	@PostMapping("/userValidation")
+	public BaseResponse valoidationCheck(@RequestBody UserRequest request) {
+		BaseResponse response = new BaseResponse();
+		try {
+			User user = userService.findByEmail(request.getUser().getEmail());
+			if(user != null) {
+				if(request.getUser().getPhoneNumber().equalsIgnoreCase(user.getPhoneNumber())) {
+					response.setMessage("Email Validated Successfully");
+				}
+				else {
+					response.setMessage("Not Matched");
+				}
+			}
+			
+			else {
+				response.setMessage("Not Matched");
+			}
+		}
+		catch(Exception e) {
+			response.setStatus(CommonConstant.ERROR);
+			System.out.println(e);
+			response.setStatusCode(01);
+		}
+		return response;
+	}
+	
+	@PostMapping("/passwordReset")
+	public BaseResponse passwordReset(@RequestBody UserRequest request) {
+		BaseResponse response = new BaseResponse();
+		try {
+			User user = userService.findByEmail(request.getUser().getEmail());
+			if(user != null) {
+				String encodedPassword = EncryptDecrypt.encrypt(request.getUser().getPassword());
+				user.setPassword(encodedPassword);
+				userService.saveUser(user);		
+			}
+			else {
+				response.setMessage("User not found");
+			}
+		}
+		catch(Exception e) {
+			response.setStatus(CommonConstant.ERROR);
+			System.out.println(e);
+			response.setStatusCode(01);
+		}
+		return response;
+		
 	}
 	
 	private void authenticate(String username, String password) throws Exception {

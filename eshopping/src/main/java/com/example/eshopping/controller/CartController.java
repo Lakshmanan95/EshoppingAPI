@@ -65,6 +65,12 @@ public class CartController {
 				cart.setCartUserId(request.getUserId());
 				cart.setQuantity(request.getQuantity());
 				cart.setGst(product.getGst());
+				cart.setDutytax(product.getDutytax());
+				cart.setSupplyerprice(product.getSupplyerprice());
+				cart.setSelectedSize(request.getSelectedSize());
+				cart.setSize(request.getSize());
+				cart.setHandlingFee(request.getHandlingFee());
+				cart.setDeliveryPartner(request.getDeliveryPartner());
 			}			
 			
 			cartService.saveCart(cart);

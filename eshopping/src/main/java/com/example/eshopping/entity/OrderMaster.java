@@ -17,7 +17,28 @@ public class OrderMaster {
 	private String sellerId;
 	private String status;
 	private String gst;
+	private boolean returnPolicy;
+	private String wayBillNumber;
+	private String supplyerprice;
+	private String dutytax;
+	private String strikePrice;
+	private String size;
+	private String selectedSize;
+	private String handlingFee;
 	
+	public String getWayBillNumber() {
+		return wayBillNumber;
+	}
+	public void setWayBillNumber(String wayBillNumber) {
+		this.wayBillNumber = wayBillNumber;
+	}
+	
+	public boolean isReturnPolicy() {
+		return returnPolicy;
+	}
+	public void setReturnPolicy(boolean returnPolicy) {
+		this.returnPolicy = returnPolicy;
+	}
 	public String getId() {
 		return id;
 	}
@@ -80,6 +101,43 @@ public class OrderMaster {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getSupplyerprice() {
+		return supplyerprice;
+	}
+	public void setSupplyerprice(String supplyerprice) {
+		this.supplyerprice = supplyerprice;
+	}
+	public String getDutytax() {
+		return dutytax;
+	}
+	public void setDutytax(String dutytax) {
+		this.dutytax = dutytax;
+	}
+	public String getStrikePrice() {
+		return strikePrice;
+	}
+	public void setStrikePrice(String strikePrice) {
+		this.strikePrice = strikePrice;
+	}
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
+	}
+	public String getSelectedSize() {
+		return selectedSize;
+	}
+	public void setSelectedSize(String selectedSize) {
+		this.selectedSize = selectedSize;
+	}
+	public String getHandlingFee() {
+		return handlingFee;
+	}
+	public void setHandlingFee(String handlingFee) {
+		this.handlingFee = handlingFee;
+	}
+	
 
 	
 	

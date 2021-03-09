@@ -15,4 +15,5 @@ public interface CartRepository extends CrudRepository<Cart, Long>{
 	Integer deleteById(String id);
 	Cart findById(String id);
 	Long countByCartUserId(String userId);
+	List<Cart> findByProductId(String productId);
 }

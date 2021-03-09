@@ -44,7 +44,9 @@ public interface ProductService {
 	
 	public List<Product> getBulkOrderProduct(String displayLocation);
 	
-	public List<ProductListing> getProductListingSuggesion(String title);
+	public List<ProductListing> getProductListingSuggesion(String title,  String categoryId, String subCategoryId);
 	
 	public List<Product> getProductNameSuggesion(String title);
+	
+	public List<Product> getProductByUserId(String userId);
 }

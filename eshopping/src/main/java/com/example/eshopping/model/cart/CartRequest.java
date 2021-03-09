@@ -9,6 +9,11 @@ public class CartRequest {
 	private String cartId;
 	private int quantity;
 	private boolean updateCart;
+	private String size;
+	private String selectedSize;
+	private String handlingFee;
+	private String deliveryPartner;
+	
 	
 	public String getProductId() {
 		return productId;
@@ -48,6 +53,38 @@ public class CartRequest {
 
 	public void setUpdateCart(boolean updateCart) {
 		this.updateCart = updateCart;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public String getSelectedSize() {
+		return selectedSize;
+	}
+
+	public void setSelectedSize(String selectedSize) {
+		this.selectedSize = selectedSize;
+	}
+
+	public String getHandlingFee() {
+		return handlingFee;
+	}
+
+	public void setHandlingFee(String handlingFee) {
+		this.handlingFee = handlingFee;
+	}
+
+	public String getDeliveryPartner() {
+		return deliveryPartner;
+	}
+
+	public void setDeliveryPartner(String deliveryPartner) {
+		this.deliveryPartner = deliveryPartner;
 	}
 	
 	

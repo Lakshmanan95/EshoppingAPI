@@ -36,8 +36,12 @@ public class Cart {
 	private String gst;
 	@NotEmpty
 	private String cartUserId;
-	
-	
+	private String supplyerprice;
+	private String dutytax; 
+	private String selectedSize;
+	private String size;
+	private String handlingFee;
+	private String deliveryPartner;
 	
 	public String getId() {
 		return id;
@@ -153,7 +157,43 @@ public class Cart {
 	public void setGst(String gst) {
 		this.gst = gst;
 	}
-
+	public String getSupplyerprice() {
+		return supplyerprice;
+	}
+	public void setSupplyerprice(String supplyerprice) {
+		this.supplyerprice = supplyerprice;
+	}
+	public String getDutytax() {
+		return dutytax;
+	}
+	public void setDutytax(String dutytax) {
+		this.dutytax = dutytax;
+	}
+	public String getSelectedSize() {
+		return selectedSize;
+	}
+	public void setSelectedSize(String selectedSize) {
+		this.selectedSize = selectedSize;
+	}
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
+	}
+	public String getHandlingFee() {
+		return handlingFee;
+	}
+	public void setHandlingFee(String handlingFee) {
+		this.handlingFee = handlingFee;
+	}
+	public String getDeliveryPartner() {
+		return deliveryPartner;
+	}
+	public void setDeliveryPartner(String deliveryPartner) {
+		this.deliveryPartner = deliveryPartner;
+	}
+	
 	
 	
 }

@@ -24,7 +24,7 @@ public interface ProductDAO {
 	
 	public List<Product> getProductApproval(String userId, String role, String status);
 	
-	public List<ProductListing> getProductListingSuggesion(String title);
+	public List<ProductListing> getProductListingSuggesion(String title,  String categoryId, String subCategoryId);
 
 	public List<Product> getProductNameSuggesion(String title);
 	

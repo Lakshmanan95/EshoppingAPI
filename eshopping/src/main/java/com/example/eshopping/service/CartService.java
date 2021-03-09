@@ -18,4 +18,6 @@ public interface CartService {
 	
 	public Long countCartItemsByUserId(String userId);
 	
+	public List<Cart> getCartByProductId(String productId);
+	
 }
