@@ -23,6 +23,7 @@ public class User {
 	private String pickUp;
 	private String aadharNumber;
 	private boolean aadharApproved = false;
+	private String country;
 	
 	
 	
@@ -79,6 +80,12 @@ public class User {
 	}
 	public void setPickUp(String pickUp) {
 		this.pickUp = pickUp;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
 	}
 	
 	

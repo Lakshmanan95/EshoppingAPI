@@ -49,6 +49,7 @@ public class AddressController {
 			address.setAlternateEmail(request.getAddress().getAlternateEmail());
 			address.setType(request.getAddress().getType());
 			address.setUserId(request.getAddress().getUserId());
+			address.setCountry(request.getAddress().getCountry());
 			Address addressCheck = new Address();
 			if(request.getAddress().isDefaultAddress()) {
 				addressCheck = addressService.findDefaultAddress(request.getAddress().getUserId(), true);

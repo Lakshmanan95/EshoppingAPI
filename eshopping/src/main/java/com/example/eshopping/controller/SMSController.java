@@ -317,4 +317,24 @@ public class SMSController {
 		return response;
 	}
 	
+	@GetMapping("/packingSlip/{id}")
+	public ResponseEntity<String> getPackingSlip(@PathVariable String id) {
+		ResponseEntity<String> response = null;
+		try {
+			  RestTemplate restTemplate = new RestTemplate();
+			  HttpHeaders httpHeaders = new HttpHeaders();
+			  httpHeaders.set("Content-Type", "application/json");
+			  httpHeaders.set("Authorization", "Token a3e76b4efa800da090c3aa95d8dec8a6717ccf9c");
+			  HttpEntity<String> entity = new HttpEntity<String>(httpHeaders);
+			  String url="https://staging-express.delhivery.com/api/p/packing_slip?wbns="+id;
+			  response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+			  System.out.println("result "+response.getBody().toString());
+			  
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return response;
+	}
+	
 }
