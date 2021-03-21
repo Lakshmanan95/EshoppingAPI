@@ -4,10 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -36,8 +32,8 @@ import com.example.eshopping.service.AddressService;
 import com.example.eshopping.service.OrderService;
 import com.example.eshopping.service.ProductService;
 import com.example.eshopping.util.JSONUtil;
-import com.example.eshopping.util.PdfGenerator;
-import com.razorpay.RazorpayClient;
+//import com.example.eshopping.util.PdfGenerator;
+//import com.razorpay.RazorpayClient;
 
 @RestController
 @RequestMapping("/order")
@@ -47,8 +43,8 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 	
-	@Autowired
-	PdfGenerator pdfGenerator;
+//	@Autowired
+//	PdfGenerator pdfGenerator;
 	
 	@Autowired
 	ProductService productService;
@@ -130,67 +126,67 @@ public class OrderController {
 		return response;
 	}
 	
-	@GetMapping("/invoice/{id}")
-	public void getInvoice(@PathVariable String id, HttpServletResponse response) throws IOException{
-		
-		OrderMaster orderMaster = orderService.getOrderMasterById(id);
-		Order order = orderService.getOrderById(orderMaster.getOrderId());
-//		Map<String, List<OrderMaster>> mapOrders = orderMaster.stream().collect(Collectors.groupingBy(OrderMaster::getSellerId));
-//		System.out.println(JSONUtil.toJson(mapOrders));
-		ByteArrayOutputStream outputValue[] = null;
-		
-                try {
-                	
-//                	for(Map.Entry<String,List<OrderMaster>> entry : mapOrders.entrySet()) {
-            			
-            			ByteArrayOutputStream output = pdfGenerator.citiesReport(order, orderMaster);
-            			String headerKey = "Content-Disposition";
-            	        String headerValue = "attachment; filename="+order.getId()+".pdf";
-            	        response.setHeader(headerKey, headerValue);
-	            		response.setContentType("application/pdf");
-	                	output.writeTo(response.getOutputStream());
-	               
-//                	}
-                } catch (IOException e) {
-                    System.out.println(e);
-                    
-                }
-//            }
-//        }).start();
-        
-			
-		}
+////	@GetMapping("/invoice/{id}")
+////	public void getInvoice(@PathVariable String id, HttpServletResponse response) throws IOException{
+////
+////		OrderMaster orderMaster = orderService.getOrderMasterById(id);
+////		Order order = orderService.getOrderById(orderMaster.getOrderId());
+//////		Map<String, List<OrderMaster>> mapOrders = orderMaster.stream().collect(Collectors.groupingBy(OrderMaster::getSellerId));
+//////		System.out.println(JSONUtil.toJson(mapOrders));
+////		ByteArrayOutputStream outputValue[] = null;
+////
+////                try {
+////
+//////                	for(Map.Entry<String,List<OrderMaster>> entry : mapOrders.entrySet()) {
+////
+////            			ByteArrayOutputStream output = pdfGenerator.citiesReport(order, orderMaster);
+////            			String headerKey = "Content-Disposition";
+////            	        String headerValue = "attachment; filename="+order.getId()+".pdf";
+////            	        response.setHeader(headerKey, headerValue);
+////	            		response.setContentType("application/pdf");
+////	                	output.writeTo(response.getOutputStream());
+////
+//////                	}
+////                } catch (IOException e) {
+////                    System.out.println(e);
+////
+////                }
+//////            }
+//////        }).start();
+//
+//
+//		}
 //		ByteArrayOutputStream output = pdfGenerator.citiesReport(order, orderMaster); 
 //		 String headerKey = "Content-Disposition";
 //	        String headerValue = "attachment; filename=users.pdf";
 //	        response.setHeader(headerKey, headerValue);
 //		response.setContentType("application/pdf");
 //		output.writeTo(response.getOutputStream());
-	
-	
-	
-	@PostMapping("/orderId")
-	public RazerOrderResponse orderRecipt(@RequestBody RazerOrderRequest request) {
-		RazerOrderResponse response = new RazerOrderResponse();
-		com.razorpay.Order order = null;
-		try {
-			RazorpayClient razorpay = new RazorpayClient("rzp_test_IeUOJK4gYGNEMj", "GSSJZK5rA40xHs3yRMw49X3f");
-			JSONObject orderRequest = new JSONObject();
-			  orderRequest.put("amount", request.getAmount()); // amount in the smallest currency unit
-			  orderRequest.put("currency", request.getCurrency());
-			  orderRequest.put("receipt", request.getReceipt());
-			  System.out.println("test");
-			  order = razorpay.Orders.create(orderRequest);
-			  System.out.println(order);
-//			  String id = order.get("id");
-			  response.setId(order.get("id"));
-//			  response.setOrder(order);
-		}
-		catch(Exception e) {
-			System.out.println(e);
-		}
-		return response;
-	}
+
+
+
+//	@PostMapping("/orderId")
+//	public RazerOrderResponse orderRecipt(@RequestBody RazerOrderRequest request) {
+//		RazerOrderResponse response = new RazerOrderResponse();
+//		com.razorpay.Order order = null;
+//		try {
+//			RazorpayClient razorpay = new RazorpayClient("rzp_test_IeUOJK4gYGNEMj", "GSSJZK5rA40xHs3yRMw49X3f");
+//			JSONObject orderRequest = new JSONObject();
+//			  orderRequest.put("amount", request.getAmount()); // amount in the smallest currency unit
+//			  orderRequest.put("currency", request.getCurrency());
+//			  orderRequest.put("receipt", request.getReceipt());
+//			  System.out.println("test");
+//			  order = razorpay.Orders.create(orderRequest);
+//			  System.out.println(order);
+////			  String id = order.get("id");
+//			  response.setId(order.get("id"));
+////			  response.setOrder(order);
+//		}
+//		catch(Exception e) {
+//			System.out.println(e);
+//		}
+//		return response;
+//	}
 	
 	@PostMapping("/getOrderByStatus")
 	public OrderDetailResponse getOrderByStatus(@RequestBody OrderRequest request) {
@@ -211,7 +207,12 @@ public class OrderController {
 		try {
 			Order order  = orderService.getOrderById(request.getId());
 			order.setOrderStatus(request.getOrderStatus());
-			orderService.saveOrderDirectly(order);			
+			orderService.saveOrderDirectly(order);	
+			List<OrderMaster> orderMaster = orderService.getOrderMasterByOrderId(request.getId());
+			for(OrderMaster orderStatusUpdate : orderMaster) {
+				orderStatusUpdate.setStatus(request.getOrderStatus());
+				orderService.saveOrderMaster(orderStatusUpdate);
+			}
 		}
 		catch(Exception e) {
 			System.out.println(e);

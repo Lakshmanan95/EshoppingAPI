@@ -52,6 +52,7 @@ public class BargainController {
 				 return response;
 			 }
 			 else {
+				
 				 int total = bargain.getNoOfBargains() + 1;
 				 bargain.setNoOfBargains(total);
 				 bargainService.saveBargain(bargain);
